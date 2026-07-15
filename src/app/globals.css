@@ -1,26 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #1d1d1f;
+  --hairline: rgba(0, 0, 0, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: "IBM Plex Sans KR", -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.h-display {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", "IBM Plex Sans KR", ui-monospace, Menlo,
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- conventional components (Apple grammar) ---- */
+.btn {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 0.08s ease, opacity 0.15s ease, background 0.15s ease;
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #111;
+  color: #fff;
+  border-radius: 9999px;
+  padding: 16px 24px;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  width: 100%;
+}
+
+.btn-ghost {
+  background: rgba(0, 0, 0, 0.07);
+  color: var(--ink);
+  border-radius: 9999px;
+  padding: 14px 20px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.icon-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+.input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  padding: 15px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+}
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.35);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
 }
