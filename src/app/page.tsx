@@ -228,8 +228,22 @@ export default function Home() {
     setIsRecording(true);
 
     let stream: MediaStream;
-    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
-    catch { setMicError("마이크를 쓸 수 없어요 (폰은 HTTPS 필요)."); setIsRecording(false); holdingRef.current = false; return; }
+    try {
+      if (!window.isSecureContext || !navigator.mediaDevices) throw new Error("insecure");
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      const name = (err as { name?: string })?.name;
+      if (!window.isSecureContext || !navigator.mediaDevices)
+        setMicError("HTTPS 주소에서만 마이크가 켜져요. https:// 로 접속하세요.");
+      else if (name === "NotAllowedError")
+        setMicError("마이크 권한이 거부됐어요. 브라우저 설정에서 허용해주세요.");
+      else if (name === "NotFoundError")
+        setMicError("마이크를 찾을 수 없어요.");
+      else setMicError("마이크를 시작할 수 없어요. 다른 앱이 쓰고 있는지 확인하세요.");
+      setIsRecording(false);
+      holdingRef.current = false;
+      return;
+    }
     if (!holdingRef.current) { stream.getTracks().forEach((t) => t.stop()); setIsRecording(false); return; }
 
     chunksRef.current = [];
