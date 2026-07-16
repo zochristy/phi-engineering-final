@@ -455,6 +455,7 @@ export default function Home() {
       const recog = new RecogCtor();
       recog.lang = "ko-KR"; recog.continuous = true; recog.interimResults = true;
       recog.onresult = (e) => {
+        if (!holdingRef.current) return; // 손 뗀 뒤 늦게 온 결과 무시
         let interim = "";
         for (let i = e.resultIndex; i < e.results.length; i++) {
           const r = e.results[i];
@@ -479,7 +480,8 @@ export default function Home() {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = null;
     if (recorderRef.current && recorderRef.current.state !== "inactive") recorderRef.current.stop();
-    recognitionRef.current?.stop();
+    // 결과 핸들러를 먼저 떼어 stop() 이후 늦게 오는 결과가 자막을 다시 채우지 않게 함
+    if (recognitionRef.current) { recognitionRef.current.onresult = null; recognitionRef.current.stop(); }
     recognitionRef.current = null;
     stopMeter();
     setIsRecording(false);
