@@ -572,13 +572,13 @@ export default function Home() {
             </div>
 
             {/* 헤더 (송신/수신 공통 구조, 색만 다름) */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginTop: 10 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginTop: 4 }}>
               <div>
-                <h1 className="h-display" style={{ fontSize: 28, margin: 0, maxWidth: 210 }}>{current.goal}</h1>
-                <p style={{ fontSize: 14, color: c.sub, margin: "5px 0 0" }}>{current.reached ? "미래의 나" : "지금의 나"}</p>
+                <h1 className="h-display" style={{ fontSize: 24, margin: 0, maxWidth: 210 }}>{current.goal}</h1>
+                <p style={{ fontSize: 13, color: c.sub, margin: "3px 0 0" }}>{current.reached ? "미래의 나" : "지금의 나"}</p>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div className="h-display" style={{ fontSize: 26 }}>{current.daysLeft > 0 ? `D-${current.daysLeft}` : "도착"}</div>
+                <div className="h-display" style={{ fontSize: 22 }}>{current.daysLeft > 0 ? `D-${current.daysLeft}` : "도착"}</div>
                 <div className="mono" style={{ fontSize: 12, color: c.sub }}>{current.reached ? `${current.thread.length}개 · 회고` : `${progress}% · ${current.thread.length}개`}</div>
               </div>
             </div>
@@ -590,7 +590,7 @@ export default function Home() {
                   <p style={{ fontSize: 14, color: c.sub }}>수신된 무전이 없어요.</p>
                 </div>
               ) : (
-                <div style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
                   <MiniCalendar channel={current} selectedIdx={activeIdx} onSelect={setActiveIdx} calYM={calYM} onMonth={stepCalMonth} />
                   {(() => {
                     const sm = current.thread[activeIdx];
@@ -630,7 +630,7 @@ export default function Home() {
                   {pad2(Math.floor(sec / 60))}:{pad2(sec % 60)} / {pad2(Math.floor(MAX_MEMO_SEC / 60))}:{pad2(MAX_MEMO_SEC % 60)}
                 </span>
               </div>
-              <p style={{ fontSize: 22, lineHeight: 1.35, textAlign: "center", margin: "8px 0 0", minHeight: 30, color: justSent || liveText || isRecording ? c.fg : c.sub, fontWeight: justSent ? 600 : 500 }}>
+              <p style={{ fontSize: 20, lineHeight: 1.3, textAlign: "center", margin: "5px 0 0", minHeight: 26, color: justSent || liveText || isRecording ? c.fg : c.sub, fontWeight: justSent ? 600 : 500 }}>
                 {justSent ?? (liveText || (isRecording ? (current.reached ? "회신 녹음 중… (떼면 전송)" : "송신 중… (떼면 전송)") : current.reached ? "날짜를 골라 누른 채 회신" : "버튼을 누른 채 말하세요"))}
               </p>
             </div>
@@ -638,7 +638,7 @@ export default function Home() {
             {micError && <p style={{ fontSize: 12, color: lightMode ? "#b30000" : CORAL_SOFT, textAlign: "center", margin: 0 }}>{micError}</p>}
 
             {/* PUSH-TO-TALK */}
-            <div style={{ display: "flex", justifyContent: "center", margin: "8px 0 16px" }}>
+            <div style={{ display: "flex", justifyContent: "center", margin: "4px 0 8px" }}>
               <button
                 onPointerDown={(e) => { e.preventDefault(); e.currentTarget.setPointerCapture(e.pointerId); startRecording(); }}
                 onPointerUp={() => stopRecording()}
@@ -646,7 +646,7 @@ export default function Home() {
                 onContextMenu={(e) => e.preventDefault()}
                 style={{ ...talkKnob, background: c.knob, transform: isRecording ? "scale(0.94)" : "scale(1)" }}
               >
-                <span style={{ width: isRecording ? 26 : 22, height: isRecording ? 26 : 22, borderRadius: isRecording ? 5 : "50%", background: isRecording ? accent : c.knobInner, transition: "all 0.15s ease" }} />
+                <span style={{ width: isRecording ? 24 : 20, height: isRecording ? 24 : 20, borderRadius: isRecording ? 5 : "50%", background: isRecording ? accent : c.knobInner, transition: "all 0.15s ease" }} />
               </button>
             </div>
 
@@ -663,9 +663,9 @@ export default function Home() {
 
 // ---- 스타일 ----
 const shell: React.CSSProperties = { height: "100dvh", display: "flex", justifyContent: "center", overflow: "hidden", transition: "background 0.4s ease" };
-const main: React.CSSProperties = { width: "100%", maxWidth: 420, height: "100%", padding: "22px 22px calc(48px + env(safe-area-inset-bottom))", display: "flex", flexDirection: "column", boxSizing: "border-box" };
+const main: React.CSSProperties = { width: "100%", maxWidth: 420, height: "100%", padding: "16px 20px calc(16px + env(safe-area-inset-bottom))", display: "flex", flexDirection: "column", boxSizing: "border-box" };
 const colFill: React.CSSProperties = { flex: 1, display: "flex", flexDirection: "column", gap: 16, minHeight: 0 };
-const colFillTight: React.CSSProperties = { flex: 1, display: "flex", flexDirection: "column", gap: 12, minHeight: 0 };
+const colFillTight: React.CSSProperties = { flex: 1, display: "flex", flexDirection: "column", gap: 8, minHeight: 0 };
 
 
 // Cohere pill CTA — white on dark bands
@@ -674,9 +674,9 @@ const ghostBtn: React.CSSProperties = { background: FAINT, color: TEXT, border: 
 
 // 채널 선택 바 (심플)
 const chanBar: React.CSSProperties = { display: "flex", alignItems: "center", flex: 1, minWidth: 0, borderRadius: 12, overflow: "hidden", padding: "0 4px" };
-const chanArrow: React.CSSProperties = { width: 34, height: 48, border: "none", background: "transparent", fontSize: 22, cursor: "pointer", lineHeight: 1, flexShrink: 0 };
-const chanCenter: React.CSSProperties = { flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2, padding: "9px 4px" };
-const newChBtn: React.CSSProperties = { width: 54, flexShrink: 0, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 400, cursor: "pointer", lineHeight: 1 };
+const chanArrow: React.CSSProperties = { width: 34, height: 42, border: "none", background: "transparent", fontSize: 22, cursor: "pointer", lineHeight: 1, flexShrink: 0 };
+const chanCenter: React.CSSProperties = { flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 1, padding: "6px 4px" };
+const newChBtn: React.CSSProperties = { width: 48, flexShrink: 0, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 400, cursor: "pointer", lineHeight: 1 };
 
 
 const dialRowLcd: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "4px 4px 12px" };
@@ -692,24 +692,24 @@ const lcdSetupTag: React.CSSProperties = { fontSize: 12, fontWeight: 600, letter
 const lcdFieldRow: React.CSSProperties = { display: "flex", alignItems: "center", gap: 12 };
 const lcdInput: React.CSSProperties = { flex: 1, minWidth: 0, background: "transparent", border: "none", outline: "none", color: TEXT, fontSize: 18, letterSpacing: 0.3 };
 
-const talkKnob: React.CSSProperties = { width: 86, height: 86, borderRadius: "50%", border: "none", background: CANVAS, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", touchAction: "none", userSelect: "none", transition: "transform 0.1s ease", boxShadow: "0 6px 20px rgba(0,0,0,0.35)" };
+const talkKnob: React.CSSProperties = { width: 74, height: 74, borderRadius: "50%", border: "none", background: CANVAS, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", touchAction: "none", userSelect: "none", transition: "transform 0.1s ease", boxShadow: "0 6px 20px rgba(0,0,0,0.35)" };
 
 // 회고 달력 (밝은 캔버스 · 인버스)
-const calCard: React.CSSProperties = { background: L_SURFACE, border: `1px solid ${L_HAIR}`, borderRadius: 22, padding: 16, flexShrink: 0, color: L_FG };
-const calHead: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 };
-const calArrow: React.CSSProperties = { width: 32, height: 28, border: "none", background: "transparent", color: L_FG, fontSize: 20, cursor: "pointer", lineHeight: 1 };
-const calWeekRow: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 4 };
-const calWeekCell: React.CSSProperties = { textAlign: "center", fontSize: 10, color: L_SUB, padding: "2px 0" };
+const calCard: React.CSSProperties = { background: L_SURFACE, border: `1px solid ${L_HAIR}`, borderRadius: 18, padding: 12, flexShrink: 0, color: L_FG };
+const calHead: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 };
+const calArrow: React.CSSProperties = { width: 32, height: 26, border: "none", background: "transparent", color: L_FG, fontSize: 20, cursor: "pointer", lineHeight: 1 };
+const calWeekRow: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 2 };
+const calWeekCell: React.CSSProperties = { textAlign: "center", fontSize: 10, color: L_SUB, padding: "1px 0" };
 const calGrid: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2 };
-const calDay: React.CSSProperties = { position: "relative", height: 34, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 8, fontSize: 13, background: "transparent", padding: 0 };
-const calDot: React.CSSProperties = { position: "absolute", bottom: 5, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: CORAL };
+const calDay: React.CSSProperties = { position: "relative", height: 30, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 8, fontSize: 13, background: "transparent", padding: 0 };
+const calDot: React.CSSProperties = { position: "absolute", bottom: 3, left: "50%", transform: "translateX(-50%)", width: 4, height: 4, borderRadius: "50%", background: CORAL };
 
-const detailCard: React.CSSProperties = { background: L_SURFACE, border: `1px solid ${L_HAIR}`, borderRadius: 16, padding: 16, color: L_FG };
+const detailCard: React.CSSProperties = { background: L_SURFACE, border: `1px solid ${L_HAIR}`, borderRadius: 16, padding: 14, color: L_FG };
 
 // TX→RX 무전기 스위치
-const txTrack: React.CSSProperties = { position: "relative", flex: 1, height: 54, borderRadius: 32, background: "rgba(0,0,0,0.28)", border: `1px solid ${HAIR}`, cursor: "pointer", overflow: "hidden", padding: 0, display: "block" };
+const txTrack: React.CSSProperties = { position: "relative", flex: 1, height: 48, borderRadius: 28, background: "rgba(0,0,0,0.28)", border: `1px solid ${HAIR}`, cursor: "pointer", overflow: "hidden", padding: 0, display: "block" };
 const txUnder: React.CSSProperties = { position: "absolute", top: 0, bottom: 0, width: "50%", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, fontSize: 13, letterSpacing: 1, color: TEXT, transition: "opacity 0.3s ease" };
-const txKnob: React.CSSProperties = { position: "absolute", top: 3, bottom: 3, left: 3, width: "calc(50% - 3px)", borderRadius: 28, background: CANVAS, color: DARK, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontSize: 13, fontWeight: 500, letterSpacing: 0.5, transition: "transform 0.36s cubic-bezier(0.5, 0, 0.2, 1)", boxShadow: "0 3px 12px rgba(0,0,0,0.4)" };
+const txKnob: React.CSSProperties = { position: "absolute", top: 3, bottom: 3, left: 3, width: "calc(50% - 3px)", borderRadius: 24, background: CANVAS, color: DARK, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontSize: 13, fontWeight: 500, letterSpacing: 0.5, transition: "transform 0.36s cubic-bezier(0.5, 0, 0.2, 1)", boxShadow: "0 3px 12px rgba(0,0,0,0.4)" };
 
 const voicePill: React.CSSProperties = { display: "inline-flex", alignItems: "center", gap: 10, background: "rgba(255,255,255,0.10)", border: `1px solid ${HAIR}`, borderRadius: 9999, padding: "8px 14px 8px 8px", cursor: "pointer", color: TEXT };
 const voiceDot: React.CSSProperties = { width: 26, height: 26, borderRadius: "50%", color: "#fff", fontSize: 11, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 };
